@@ -1,6 +1,5 @@
 // @flow
 import React from 'react';
-import classNames from 'classnames';
 import { NavLink } from 'react-router-dom';
 import withStyles from '@material-ui/core/styles/withStyles';
 import Drawer from '@material-ui/core/Drawer';
@@ -9,18 +8,19 @@ import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
+import classNames from 'classnames';
 
 import {
   drawerWidth,
   transition,
   boxShadow,
   defaultFont,
+  secondaryColor,
 } from '../../theme';
 
 type Props = {
   classes: Object,
   location: Object,
-  color: string,
   logoText: string,
   logo: string,
   routes: Array<Object>,
@@ -146,16 +146,13 @@ const styles = theme => ({
       color: '#FFFFFF',
     },
   },
-  itemLink: {
-    width: 'auto',
-    transition: 'all 300ms linear',
-    margin: '10px 15px 0',
-    borderRadius: '3px',
-    position: 'relative',
-    display: 'block',
-    padding: '10px 15px',
+  itemMenu: {
     backgroundColor: 'transparent',
-    ...defaultFont,
+    borderLeft: '3px solid transparent',
+  },
+  activeMenu: {
+    backgroundColor: 'rgba(0, 0, 0, 0.08)',
+    borderLeft: `3px solid ${secondaryColor}`,
   },
   itemIcon: {
     width: '24px',
@@ -201,34 +198,27 @@ class Sidebar extends React.PureComponent<Props> {
   }
 
   renderLinks = () => {
-    const { classes, color, routes } = this.props;
+    const { classes, routes } = this.props;
 
     /* eslint react/no-array-index-key: 0 */
     return (
       <List className={classes.list}>
         {routes.map((prop) => {
           if (prop.redirect) return null;
-          const activePro = '';
-          const listItemClasses = classNames({
-            [`${classes[color]}`]: this.checkActiveRoute(prop.path),
-          });
-          const whiteFontClasses = classNames({
-            [`${classes.whiteFont}`]: this.checkActiveRoute(prop.path),
-          });
           return (
             <NavLink
               to={prop.path}
-              className={activePro + classes.item}
+              className={classes.item}
               activeClassName="active"
               key={prop.navbarName}
             >
-              <ListItem button className={classes.itemLink + listItemClasses}>
-                <ListItemIcon className={classes.itemIcon + whiteFontClasses}>
+              <ListItem button className={classNames(classes.itemMenu, this.checkActiveRoute(prop.path) && classes.activeMenu)}>
+                <ListItemIcon className={classNames(classes.itemIcon, this.checkActiveRoute(prop.path) && classes.whiteFont)}>
                   <prop.icon />
                 </ListItemIcon>
                 <ListItemText
                   primary={prop.sidebarName}
-                  className={classes.itemText + whiteFontClasses}
+                  className={classNames(classes.itemText, this.checkActiveRoute(prop.path) && classes.whiteFont)}
                   disableTypography
                 />
               </ListItem>
