@@ -10,7 +10,7 @@ const styles = {
   root: {},
 };
 
-class Dashboard extends React.PureComponent<Props> {
+class DashboardContainer extends React.PureComponent<Props> {
   render() {
     const { classes } = this.props;
     return (
@@ -21,4 +21,4 @@ class Dashboard extends React.PureComponent<Props> {
   }
 }
 
-export default withStyles(styles)(Dashboard);
+export default withStyles(styles)(DashboardContainer);

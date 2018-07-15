@@ -5,20 +5,20 @@ import Loadable from 'react-loadable';
 
 const Loading = () => null;
 
-const Main = Loadable({
+const MainContainer = Loadable({
   loader: () => import('../containers/MainContainer'),
   loading: Loading,
 });
 
-const NotFound = Loadable({
+const NotFoundContainer = Loadable({
   loader: () => import('../containers/NotFoundContainer'),
   loading: Loading,
 });
 
 const Routes = () => (
   <Switch>
-    <Route path="/" component={Main} />
-    <Route path="*" component={NotFound} />
+    <Route path="/" component={MainContainer} />
+    <Route path="*" component={NotFoundContainer} />
   </Switch>
 );
 

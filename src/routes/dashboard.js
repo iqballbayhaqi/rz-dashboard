@@ -6,7 +6,7 @@ import DashboardIcon from '@material-ui/icons/Dashboard';
 
 const Loading = () => null;
 
-const Dashboard = Loadable({
+const DashboardContainer = Loadable({
   loader: () => import('../containers/DashboardContainer'),
   loading: Loading,
 });
@@ -17,7 +17,7 @@ export const dashboardIndexRoutes = [
     sidebarName: 'Dashboard',
     navbarName: 'Dashboard',
     icon: DashboardIcon,
-    component: Dashboard,
+    component: DashboardContainer,
   },
   { redirect: true, path: '/', to: '/dashboard', navbarName: 'Redirect' },
 ];
