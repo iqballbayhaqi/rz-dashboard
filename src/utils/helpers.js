@@ -1,11 +1,10 @@
-export const host = 'https://rizalibnu.com';
-
-export const getId = (str) => {
+// @flow
+export const getId = (str: string) => {
   const string = str.split('/');
   return string[string.length - 1];
 };
 
-export const titleToSlug = (str) => {
+export const titleToSlug = (str: string) => {
   let string = str;
   string = string.replace(/^\s+|\s+$/g, ''); // trim
   string = string.toLowerCase();
@@ -25,7 +24,7 @@ export const titleToSlug = (str) => {
   return string;
 };
 
-export const slugToTitle = (slug) => {
+export const slugToTitle = (slug: string) => {
   const words = slug.split('-');
 
   for (let i = 0; i < words.length; i += 1) {
@@ -36,7 +35,7 @@ export const slugToTitle = (slug) => {
   return words.join(' ');
 };
 
-export const getExcerpt = (text, limit = 0, except = '...') => {
+export const getExcerpt = (text: string, limit: number = 0, except: string = '...') => {
   let content = text;
   content = content.split(/<\s*p[^>]*>([^<]*)<\s*\/\s*p\s*>/);
   content = content.filter(v => v.length > 100);
@@ -44,13 +43,13 @@ export const getExcerpt = (text, limit = 0, except = '...') => {
   return content.substring(0, limit) + except;
 };
 
-export const getAllCategories = (params) => {
+export const getAllCategories = (params: Array<Object>) => {
   const items = params;
-  let categories = items.map(item => item.categories);
+  let categories = items.map((item: Object) => item.categories);
   categories = [].concat(...categories);
   const setCategories = new Set(categories);
   const sorted = Array.from(setCategories).sort();
-  const objects = sorted.map((item, index) => ({
+  const objects = sorted.map((item: string, index: any) => ({
     id: index,
     slug: item,
     title: slugToTitle(item),
@@ -59,7 +58,7 @@ export const getAllCategories = (params) => {
   return objects;
 };
 
-export const WebpIsSupported = (callback) => {
+export const WebpIsSupported = (callback: Function) => {
   // If the browser doesn't has the method createImageBitmap, you can't display webp format
   if (!window.createImageBitmap) {
     callback(false);
@@ -80,7 +79,7 @@ export const WebpIsSupported = (callback) => {
   });
 };
 
-export const getCloudinaryImage = (img, desktop, tablet, phone) => {
+export const getCloudinaryImage = (img: string, desktopSize: number, tabletSize: number, phoneSize: number) => {
   let widthSize = 0;
   let imageType = 'webp';
 
@@ -93,21 +92,21 @@ export const getCloudinaryImage = (img, desktop, tablet, phone) => {
   });
 
   if (window.screen.width >= 860) {
-    if (!desktop || desktop === null) {
+    if (!desktopSize || desktopSize === null) {
       widthSize = 640;
     } else {
-      widthSize = desktop;
+      widthSize = desktopSize;
     }
   } else if (window.screen.width >= 640 && window.screen.width < 860) {
-    if (!tablet || tablet === null) {
+    if (!tabletSize || tabletSize === null) {
       widthSize = 860;
     } else {
-      widthSize = tablet;
+      widthSize = tabletSize;
     }
-  } else if (!phone || phone === null) {
+  } else if (!phoneSize || phoneSize === null) {
     widthSize = 412;
   } else {
-    widthSize = phone;
+    widthSize = phoneSize;
   }
 
   const fetchUrl = `https://res.cloudinary.com/rizalibnu/image/fetch/c_fill,g_auto:face,w_${widthSize},fl_force_strip.progressive/f_${imageType}/`;

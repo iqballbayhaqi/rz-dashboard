@@ -1,3 +1,4 @@
+// @flow
 /**
  * Global Theme Styles
  */
