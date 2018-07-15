@@ -2,7 +2,8 @@
 import * as React from 'react';
 import { Switch, Route, Redirect } from 'react-router-dom';
 import Loadable from 'react-loadable';
-import DashboardIcon from '@material-ui/icons/Dashboard';
+import Dashboard from '@material-ui/icons/Dashboard';
+import Person from '@material-ui/icons/Person';
 
 const Loading = () => null;
 
@@ -11,13 +12,25 @@ const DashboardContainer = Loadable({
   loading: Loading,
 });
 
+const UsersContainer = Loadable({
+  loader: () => import('../containers/UsersContainer'),
+  loading: Loading,
+});
+
 export const dashboardIndexRoutes = [
   {
     path: '/dashboard',
     sidebarName: 'Dashboard',
     navbarName: 'Dashboard',
-    icon: DashboardIcon,
+    icon: Dashboard,
     component: DashboardContainer,
+  },
+  {
+    path: '/users',
+    sidebarName: 'Users',
+    navbarName: 'Users',
+    icon: Person,
+    component: UsersContainer,
   },
   { redirect: true, path: '/', to: '/dashboard', navbarName: 'Redirect' },
 ];
