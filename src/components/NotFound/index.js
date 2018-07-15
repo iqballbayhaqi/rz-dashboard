@@ -1,6 +1,6 @@
 // @flow
 import * as React from 'react';
-import injectSheet from 'react-jss';
+import withStyles from '@material-ui/core/styles/withStyles';
 
 type Props = {
   classes: Object,
@@ -31,10 +31,12 @@ class NotFound extends React.PureComponent<Props> {
         <div className={classes.title}>
           404
         </div>
-        <div>Halaman tidak ditemukan</div>
+        <div>
+          Halaman tidak ditemukan
+        </div>
       </div>
     );
   }
 }
 
-export default injectSheet(styles)(NotFound);
+export default withStyles(styles)(NotFound);
