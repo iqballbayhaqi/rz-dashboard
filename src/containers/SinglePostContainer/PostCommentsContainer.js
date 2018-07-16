@@ -19,43 +19,46 @@ import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
 
 import TableHeadView from '../../components/Table/TableHeadView';
-import TableToolbar from '../../components/Table/TableToolbar';
-import { fetchPosts, deletePost } from '../../actions/posts';
+import { fetchComments, deleteComment } from '../../actions/comments';
+import { getExcerpt } from '../../utils/helpers';
 
 type Props = {
   classes: Object,
-  posts: Array<Object>,
+  post: Object,
+  comments: Array<Object>,
   count: number,
   loading: boolean,
-  fetchPosts: Function,
-  deletePost: Function,
-  deletedPostId: number,
+  fetchComments: Function,
+  deleteComment: Function,
+  deletedCommentId: number,
 };
 
 type State = {
   page: number,
   limit: number,
   showConfirmDeleteModal: boolean,
-  postIdDelete: ?number,
+  commentIdDelete: ?number,
 };
 
 const columnData = [
-  { id: 1, numeric: true, disablePadding: false, label: 'Post ID' },
-  { id: 2, numeric: false, disablePadding: false, label: 'Title' },
+  { id: 1, numeric: true, disablePadding: false, label: 'Comments ID' },
+  { id: 2, numeric: false, disablePadding: false, label: 'Name' },
+  { id: 3, numeric: false, disablePadding: false, label: 'Email' },
+  { id: 4, numeric: false, disablePadding: false, label: 'Body' },
   { id: 5, numeric: false, disablePadding: false, label: 'Action' },
 ];
 
-const styles = theme => ({
-  root: {
-    width: '100%',
-    marginTop: theme.spacing.unit,
-  },
+const styles = {
   table: {
     minWidth: 1020,
   },
   tableWrapper: {
     overflowX: 'auto',
     position: 'relative',
+  },
+  title: {
+    marginLeft: 20,
+    paddingTop: 20,
   },
   addButtonWrapper: {
     textAlign: 'right',
@@ -67,9 +70,9 @@ const styles = theme => ({
     top: '50%',
     left: '50%',
   },
-});
+};
 
-class PostsContainer extends React.Component<Props, State> {
+class PostCommentsContainer extends React.PureComponent<Props, State> {
   constructor(props: Props) {
     super(props);
 
@@ -77,89 +80,100 @@ class PostsContainer extends React.Component<Props, State> {
       page: 0,
       limit: 10,
       showConfirmDeleteModal: false,
-      postIdDelete: null,
+      commentIdDelete: null,
     };
   }
 
   componentWillMount() {
+    const { id } = this.props.post;
     const { page, limit } = this.state;
-    this.props.fetchPosts(page, limit);
+    this.props.fetchComments(id, page, limit);
   }
 
   componentDidUpdate(prevProps) {
+    const { id } = this.props.post;
     const { page, limit } = this.state;
-    if (prevProps.deletedPostId !== this.props.deletedPostId) {
-      this.props.fetchPosts(page, limit);
+    if (prevProps.deletedCommentId !== this.props.deletedCommentId) {
+      this.props.fetchComments(id, page, limit);
     }
   }
 
   handleChangePage = (event: Object, page: number) => {
+    const { id } = this.props.post;
     const { limit } = this.state;
-    this.props.fetchPosts(page, limit);
+    this.props.fetchComments(id, page, limit);
     this.setState({ page });
   };
 
   handleChangeRowsPerPage = (event: Object) => {
+    const { id } = this.props.post;
     const { page } = this.state;
-    this.props.fetchPosts(page, event.target.value);
+    this.props.fetchComments(id, page, event.target.value);
     this.setState({ limit: event.target.value });
   };
 
   handleShowConfirmDeleteModal = (id: number) => {
     this.setState({
       showConfirmDeleteModal: true,
-      postIdDelete: id,
+      commentIdDelete: id,
     });
   }
 
   handleCancelDelete = () => {
     this.setState({
       showConfirmDeleteModal: false,
-      postIdDelete: null,
+      commentIdDelete: null,
     });
   }
 
   handleConfirmDelete = (id: number) => {
     if (id !== null) {
-      this.props.deletePost(id);
+      this.props.deleteComment(id);
       this.setState({ showConfirmDeleteModal: false });
     }
   }
 
   render() {
-    const { classes, posts, loading, count } = this.props;
-    const { limit, page, showConfirmDeleteModal, postIdDelete } = this.state;
+    const { classes, comments, loading, count, post: { id } } = this.props;
+    const { limit, page, showConfirmDeleteModal, commentIdDelete } = this.state;
 
     return (
       <Paper className={classes.root}>
-        <div className={classes.addButtonWrapper}>
-          <Button variant="contained" color="primary" component={Link} to="/posts/new">
-            Add New Post
-          </Button>
-        </div>
-        <TableToolbar title="Posts" />
         <div className={classes.tableWrapper}>
+          <div className={classes.addButtonWrapper}>
+            <Button variant="contained" color="primary" component={Link} to={`/comments/new/posts/${id}`}>
+              Add New Comment
+            </Button>
+          </div>
           {loading && <CircularProgress className={classes.progress} />}
+          {id && (
+            <h1 className={classes.title}>
+              {`Post ID: ${id}`}
+            </h1>
+          )}
           <Table className={classes.table} aria-labelledby="tableTitle">
             <TableHeadView columnData={columnData} />
             <TableBody>
-              {posts.map(cell => (
+              {comments.map(cell => (
                 <TableRow key={cell.id}>
                   <TableCell numeric>
                     {cell.id}
                   </TableCell>
                   <TableCell>
-                    {cell.title}
+                    {cell.name}
                   </TableCell>
                   <TableCell>
-                    <Button color="primary" to={`/posts/${cell.id}`} component={Link}>
+                    {cell.email}
+                  </TableCell>
+                  <TableCell>
+                    {getExcerpt(cell.body, 80)}
+                  </TableCell>
+                  <TableCell>
+                    <Button color="primary" to={`/comments/${cell.id}`} component={Link}>
                       Edit
                     </Button>
                     <Button color="primary" onClick={() => this.handleShowConfirmDeleteModal(cell.id)}>
                       Delete
-                    </Button>
-                    <Button color="primary" to={`/posts/${cell.id}/comments`} component={Link}>
-                      View Comments
                     </Button>
                   </TableCell>
                 </TableRow>
@@ -194,14 +208,14 @@ class PostsContainer extends React.Component<Props, State> {
           </DialogTitle>
           <DialogContent>
             <DialogContentText id="alert-dialog-description">
-              {'Deleted post can\'t be restored'}
+              {'Deleted comment can\'t be restored'}
             </DialogContentText>
           </DialogContent>
           <DialogActions>
             <Button onClick={this.handleCancelDelete} color="primary">
               Cancel
             </Button>
-            <Button onClick={() => this.handleConfirmDelete(postIdDelete)} color="primary" autoFocus>
+            <Button onClick={() => this.handleConfirmDelete(commentIdDelete)} color="primary" autoFocus>
               {'Yes, I\'m Sure'}
             </Button>
           </DialogActions>
@@ -213,15 +227,15 @@ class PostsContainer extends React.Component<Props, State> {
 
 function mapStateToProps(state) {
   return {
-    posts: state.postsReducer.posts,
-    deletedPostId: state.postsReducer.deletedPostId,
-    count: state.postsReducer.count,
-    loading: state.postsReducer.loading,
-    error: state.postsReducer.error,
+    comments: state.commentsReducer.comments,
+    deletedCommentId: state.commentsReducer.deletedCommentId,
+    count: state.commentsReducer.count,
+    loading: state.commentsReducer.loading,
+    error: state.commentsReducer.error,
   };
 }
 
 export default compose(
   withStyles(styles),
-  connect(mapStateToProps, { fetchPosts, deletePost }),
-)(PostsContainer);
+  connect(mapStateToProps, { fetchComments, deleteComment }),
+)(PostCommentsContainer);

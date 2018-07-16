@@ -204,7 +204,7 @@ class Sidebar extends React.PureComponent<Props> {
     return (
       <List className={classes.list}>
         {routes.map((prop) => {
-          if (prop.redirect) return null;
+          if (prop.redirect || !prop.showInNavigation) return null;
           return (
             <NavLink
               to={prop.path}
@@ -217,7 +217,7 @@ class Sidebar extends React.PureComponent<Props> {
                   <prop.icon />
                 </ListItemIcon>
                 <ListItemText
-                  primary={prop.sidebarName}
+                  primary={prop.navbarName}
                   className={classNames(classes.itemText, this.checkActiveRoute(prop.path) && classes.whiteFont)}
                   disableTypography
                 />

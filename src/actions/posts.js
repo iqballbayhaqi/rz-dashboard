@@ -4,8 +4,6 @@ import api from '../api';
 export const FETCH_POSTS__ERROR = 'FETCH_POSTS__ERROR';
 export const FETCH_POSTS__LOADING = 'FETCH_POSTS__LOADING';
 export const FETCH_POSTS__SUCCESS = 'FETCH_POSTS__SUCCESS';
-export const FETCH_POST__ERROR = 'FETCH_POST__ERROR';
-export const FETCH_POST__LOADING = 'FETCH_POST__LOADING';
 export const DELETE_POST_SUCCESS = 'DELETE_POST_SUCCESS';
 
 export const fetchPostsError = (error: Object) => ({
@@ -31,7 +29,7 @@ export const deletePostSuccess = id => ({
 export const fetchPosts = (page: number, limit: number) => (dispatch: Function) => {
   dispatch(fetchPostsLoading(true));
 
-  const url = `posts?_page=${page + 1}&_limit=${limit}`;
+  const url = `posts?_page=${page + 1}&_limit=${limit}&_sort=id&_order=desc`;
 
   api.get(url)
     .then((response) => {

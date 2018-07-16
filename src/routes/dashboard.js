@@ -23,36 +23,64 @@ const PostsContainer = Loadable({
   loading: Loading,
 });
 
+const SinglePostContainer = Loadable({
+  loader: () => import('../containers/SinglePostContainer'),
+  loading: Loading,
+});
+
 export const dashboardIndexRoutes = [
   {
+    showInNavigation: true,
     path: '/dashboard',
-    sidebarName: 'Dashboard',
     navbarName: 'Dashboard',
     icon: Dashboard,
     component: DashboardContainer,
   },
   {
+    showInNavigation: true,
     path: '/users',
-    sidebarName: 'Users',
     navbarName: 'Users',
     icon: Person,
     component: UsersContainer,
   },
   {
+    showInNavigation: true,
     path: '/posts',
-    sidebarName: 'Posts',
     navbarName: 'Posts',
     icon: Description,
     component: PostsContainer,
   },
-  { redirect: true, path: '/', to: '/dashboard', navbarName: 'Redirect' },
+  {
+    showInNavigation: false,
+    path: '/posts/:id',
+    navbarName: 'Single Post',
+    component: SinglePostContainer,
+  },
+  {
+    showInNavigation: false,
+    path: '/posts/new',
+    navbarName: 'Add New Post',
+    component: SinglePostContainer,
+  },
+  {
+    showInNavigation: false,
+    path: '/posts/:id/comments',
+    navbarName: 'Single Post Comments',
+    component: SinglePostContainer,
+  },
+  {
+    redirect: true,
+    path: '/',
+    to: '/dashboard',
+    navbarName: 'Redirect',
+  },
 ];
 
 const DashboardRoutes = () => (
   <Switch>
     {dashboardIndexRoutes.map((prop) => {
       if (prop.redirect) { return <Redirect from={prop.path} to={prop.to} key={prop.navbarName} />; }
-      return <Route path={prop.path} component={prop.component} key={prop.navbarName} />;
+      return <Route exact path={prop.path} component={prop.component} key={prop.navbarName} />;
     })}
   </Switch>
 );

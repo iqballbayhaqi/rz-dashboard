@@ -35,7 +35,7 @@ export const slugToTitle = (slug: string) => {
   return words.join(' ');
 };
 
-export const getExcerpt = (text: string, limit: number = 0, except: string = '...') => {
+export const getExcerpt = (text: string, limit: number = 50, except: string = '...') => {
   let content = text;
   content = content.split(/<\s*p[^>]*>([^<]*)<\s*\/\s*p\s*>/);
   content = content.filter(v => v.length > 100);
