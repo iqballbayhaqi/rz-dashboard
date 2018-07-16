@@ -53,8 +53,6 @@ class SinglePostContainer extends React.PureComponent<Props, State> {
       loading,
     } = this.props;
 
-    console.log(this.props);
-
     return (
       <React.Fragment>
         <Paper className={classes.root}>
