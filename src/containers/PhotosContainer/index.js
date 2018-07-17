@@ -2,7 +2,7 @@
 import * as React from 'react';
 import compose from 'recompose/compose';
 import { connect } from 'react-redux';
-import { withRouter, Link } from 'react-router-dom';
+import { withRouter } from 'react-router-dom';
 import { withStyles } from '@material-ui/core/styles';
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
@@ -14,10 +14,12 @@ import Button from '@material-ui/core/Button';
 import ButtonBase from '@material-ui/core/ButtonBase';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import { Lazy } from 'react-lazy';
+import Modal from 'react-responsive-modal';
 
 import TableHeadView from '../../components/Table/TableHeadView';
 import TableToolbar from '../../components/Table/TableToolbar';
 import { fetchPhotos, fetchPhotosOfAlbum } from '../../actions/photos';
+import Image from '../../components/Image';
 
 type Props = {
   classes: Object,
@@ -32,6 +34,8 @@ type Props = {
 type State = {
   page: number,
   limit: number,
+  modalOpen: boolean,
+  photo: Object,
 };
 
 const columnData = [
@@ -57,6 +61,9 @@ const styles = theme => ({
     padding: 20,
     maxWidth: 120,
   },
+  zoomImage: {
+    width: '100%',
+  },
   progress: {
     position: 'absolute',
     top: '50%',
@@ -71,6 +78,8 @@ class PhotosContainer extends React.Component<Props, State> {
     this.state = {
       page: 0,
       limit: 10,
+      modalOpen: false,
+      photo: {},
     };
   }
 
@@ -120,9 +129,20 @@ class PhotosContainer extends React.Component<Props, State> {
     return '';
   }
 
+  handleOpenModal = (photo: Object) => {
+    this.setState({
+      modalOpen: true,
+      photo,
+    });
+  };
+
+  handleCloseModal = () => {
+    this.setState({ modalOpen: false });
+  };
+
   render() {
     const { classes, photos, loading, count } = this.props;
-    const { limit, page } = this.state;
+    const { limit, page, modalOpen, photo } = this.state;
 
     return (
       <Paper className={classes.root}>
@@ -138,9 +158,9 @@ class PhotosContainer extends React.Component<Props, State> {
                     {cell.id}
                   </TableCell>
                   <TableCell>
-                    <ButtonBase to={`/photos/${cell.id}`} component={Link}>
+                    <ButtonBase onClick={() => this.handleOpenModal(cell)}>
                       <Lazy ltIE9 className={classes.image}>
-                        <img src={cell.thumbnailUrl} alt={cell.title} className={classes.image} />
+                        <Image src={cell.thumbnailUrl} alt={cell.title} className={classes.image} />
                       </Lazy>
                     </ButtonBase>
                   </TableCell>
@@ -148,7 +168,7 @@ class PhotosContainer extends React.Component<Props, State> {
                     {cell.title}
                   </TableCell>
                   <TableCell>
-                    <Button color="primary" to={`/photos/${cell.id}`} component={Link}>
+                    <Button color="primary" onClick={() => this.handleOpenModal(cell)}>
                       View Photo
                     </Button>
                   </TableCell>
@@ -171,6 +191,14 @@ class PhotosContainer extends React.Component<Props, State> {
           onChangePage={this.handleChangePage}
           onChangeRowsPerPage={this.handleChangeRowsPerPage}
         />
+        <Modal open={modalOpen} onClose={this.handleCloseModal} center>
+          <h2>
+            {photo.title}
+          </h2>
+          <Lazy ltIE9 className={classes.zoomImage}>
+            <Image src={photo.url} alt={photo.title} className={classes.zoomImage} />
+          </Lazy>
+        </Modal>
       </Paper>
     );
   }
