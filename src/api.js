@@ -2,7 +2,7 @@
 import axios from 'axios';
 
 const api = axios.create({
-  baseURL: 'https://api-json-placeholder.herokuapp.com/',
+  baseURL: 'https://jsonplaceholder.rizalibnu.com/',
   headers: {
     'Content-Type': 'application/json',
   },
