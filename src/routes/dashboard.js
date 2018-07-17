@@ -5,6 +5,7 @@ import Loadable from 'react-loadable';
 import Dashboard from '@material-ui/icons/Dashboard';
 import Person from '@material-ui/icons/Person';
 import Description from '@material-ui/icons/Description';
+import PhotoLibrary from '@material-ui/icons/PhotoLibrary';
 
 const Loading = () => null;
 
@@ -100,6 +101,13 @@ export const dashboardIndexRoutes = [
     showInNavigation: false,
     path: '/users/:id/albums',
     navbarName: 'Albums of User',
+    component: AlbumsContainer,
+  },
+  {
+    showInNavigation: true,
+    path: '/albums',
+    navbarName: 'Albums',
+    icon: PhotoLibrary,
     component: AlbumsContainer,
   },
   {
