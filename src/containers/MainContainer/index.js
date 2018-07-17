@@ -2,7 +2,7 @@
 import * as React from 'react';
 import withStyles from '@material-ui/core/styles/withStyles';
 
-// import Header from '../../components/Header';
+import Header from '../../components/Header';
 import Footer from '../../components/Footer';
 import Sidebar from '../../components/Sidebar';
 
@@ -38,6 +38,7 @@ const styles = theme => ({
     overflowScrolling: 'touch',
   },
   content: {
+    marginTop: '30px',
     padding: '30px 15px',
     minHeight: 'calc(100vh - 123px)',
   },
@@ -62,8 +63,6 @@ class MainContainer extends React.PureComponent<Props, State> {
     this.setState({ mobileOpen: !mobileOpen });
   };
 
-  mainPanel: React.Element<'div'>;
-
   render() {
     const { classes, ...others } = this.props;
     const { mobileOpen } = this.state;
@@ -79,6 +78,11 @@ class MainContainer extends React.PureComponent<Props, State> {
           {...others}
         />
         <div className={classes.mainPanel}>
+          <Header
+            routes={dashboardIndexRoutes}
+            handleDrawerToggle={this.handleDrawerToggle}
+            {...others}
+          />
           <div className={classes.content}>
             <div className={classes.container}>
               <DashboardRoutes />
