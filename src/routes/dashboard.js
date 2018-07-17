@@ -33,6 +33,11 @@ const SingleCommentContainer = Loadable({
   loading: Loading,
 });
 
+const AlbumsContainer = Loadable({
+  loader: () => import('../containers/AlbumsContainer'),
+  loading: Loading,
+});
+
 export const dashboardIndexRoutes = [
   {
     showInNavigation: true,
@@ -90,6 +95,12 @@ export const dashboardIndexRoutes = [
     path: '/comments/new/posts/:postId',
     navbarName: 'Add New Comment',
     component: SingleCommentContainer,
+  },
+  {
+    showInNavigation: false,
+    path: '/users/:id/albums',
+    navbarName: 'Albums of User',
+    component: AlbumsContainer,
   },
   {
     redirect: true,
