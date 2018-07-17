@@ -40,7 +40,7 @@ export const fetchPhotos = (page: number, limit: number) => (dispatch: Function)
     });
 };
 
-export const fetchPhotosOfUser = (page: number, limit: number, albumId: number) => (dispatch: Function) => {
+export const fetchPhotosOfAlbum = (page: number, limit: number, albumId: number) => (dispatch: Function) => {
   dispatch(fetchPhotosLoading(true));
 
   const url = `albums/${albumId}/photos?_page=${page + 1}&_limit=${limit}&_sort=id&_order=desc`;

@@ -39,6 +39,11 @@ const AlbumsContainer = Loadable({
   loading: Loading,
 });
 
+const PhotosContainer = Loadable({
+  loader: () => import('../containers/PhotosContainer'),
+  loading: Loading,
+});
+
 export const dashboardIndexRoutes = [
   {
     showInNavigation: true,
@@ -109,6 +114,12 @@ export const dashboardIndexRoutes = [
     navbarName: 'Albums',
     icon: PhotoLibrary,
     component: AlbumsContainer,
+  },
+  {
+    showInNavigation: false,
+    path: '/albums/:id/photos',
+    navbarName: 'Photos of Album',
+    component: PhotosContainer,
   },
   {
     redirect: true,
