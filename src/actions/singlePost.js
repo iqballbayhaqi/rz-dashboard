@@ -36,14 +36,14 @@ export const addSinglePostSuccess = (data: Object) => ({
   payload: data,
 });
 
-export const newSinglePost = () => (dispatch) => {
+export const newSinglePost = () => (dispatch: Function) => {
   dispatch({
     type: NEW_SINGLE_POST__SUCCESS,
     payload: { userId: 1 }, // Dummy userId, only for simulation
   });
 };
 
-export const hideSaveSinglePostSuccessModal = () => (dispatch) => {
+export const hideSaveSinglePostSuccessModal = () => (dispatch: Function) => {
   dispatch({
     type: HIDE_SAVE_SINGLE_POST_SUCCESS_MODAL,
     payload: false,

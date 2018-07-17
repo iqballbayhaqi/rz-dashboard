@@ -21,7 +21,7 @@ export const fetchPostsSuccess = (data: Object) => ({
   payload: data,
 });
 
-export const deletePostSuccess = id => ({
+export const deletePostSuccess = (id: number) => ({
   type: DELETE_POST_SUCCESS,
   payload: id,
 });

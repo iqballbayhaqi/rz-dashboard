@@ -36,14 +36,14 @@ export const addSingleCommentSuccess = (data: Object) => ({
   payload: data,
 });
 
-export const newSingleComment = (postId: number) => (dispatch) => {
+export const newSingleComment = (postId: number) => (dispatch: Function) => {
   dispatch({
     type: NEW_SINGLE_COMMENT__SUCCESS,
     payload: { postId }, // Dummy userId, only for simulation
   });
 };
 
-export const hideSaveSingleCommentSuccessModal = () => (dispatch) => {
+export const hideSaveSingleCommentSuccessModal = () => (dispatch: Function) => {
   dispatch({
     type: HIDE_SAVE_SINGLE_COMMENT_SUCCESS_MODAL,
     payload: false,

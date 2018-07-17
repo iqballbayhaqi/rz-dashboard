@@ -21,7 +21,7 @@ export const fetchCommentsSuccess = (data: Object) => ({
   payload: data,
 });
 
-export const deleteCommentSuccess = id => ({
+export const deleteCommentSuccess = (id: number) => ({
   type: DELETE_COMMENT_SUCCESS,
   payload: id,
 });
