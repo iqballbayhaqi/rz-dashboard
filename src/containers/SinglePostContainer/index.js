@@ -68,7 +68,7 @@ class SinglePostContainer extends React.PureComponent<Props, State> {
           </Tabs>
           )}
           {pathname === `/posts/${id}` && <EditPostContainer post={post} loading={loading} />}
-          {post.id && pathname === `/posts/${id}/comments` && <PostCommentsContainer post={post} />}
+          {post.id && pathname === `/posts/${id}/comments` && <PostCommentsContainer id={id} post={post} />}
         </Paper>
       </React.Fragment>
     );

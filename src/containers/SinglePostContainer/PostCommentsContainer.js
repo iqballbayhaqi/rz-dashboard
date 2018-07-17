@@ -20,11 +20,10 @@ import DialogTitle from '@material-ui/core/DialogTitle';
 
 import TableHeadView from '../../components/Table/TableHeadView';
 import { fetchComments, deleteComment } from '../../actions/comments';
-import { getExcerpt } from '../../utils/helpers';
 
 type Props = {
   classes: Object,
-  post: Object,
+  id: number,
   comments: Array<Object>,
   count: number,
   loading: boolean,
@@ -72,7 +71,7 @@ const styles = {
   },
 };
 
-class PostCommentsContainer extends React.PureComponent<Props, State> {
+class PostCommentsContainer extends React.Component<Props, State> {
   constructor(props: Props) {
     super(props);
 
@@ -85,13 +84,13 @@ class PostCommentsContainer extends React.PureComponent<Props, State> {
   }
 
   componentWillMount() {
-    const { id } = this.props.post;
+    const { id } = this.props;
     const { page, limit } = this.state;
     this.props.fetchComments(id, page, limit);
   }
 
   componentDidUpdate(prevProps) {
-    const { id } = this.props.post;
+    const { id } = this.props;
     const { page, limit } = this.state;
     if (prevProps.deletedCommentId !== this.props.deletedCommentId) {
       this.props.fetchComments(id, page, limit);
@@ -99,14 +98,14 @@ class PostCommentsContainer extends React.PureComponent<Props, State> {
   }
 
   handleChangePage = (event: Object, page: number) => {
-    const { id } = this.props.post;
+    const { id } = this.props;
     const { limit } = this.state;
     this.props.fetchComments(id, page, limit);
     this.setState({ page });
   };
 
   handleChangeRowsPerPage = (event: Object) => {
-    const { id } = this.props.post;
+    const { id } = this.props;
     const { page } = this.state;
     this.props.fetchComments(id, page, event.target.value);
     this.setState({ limit: event.target.value });
@@ -134,8 +133,9 @@ class PostCommentsContainer extends React.PureComponent<Props, State> {
   }
 
   render() {
-    const { classes, comments, loading, count, post: { id } } = this.props;
+    const { classes, comments, loading, count, id } = this.props;
     const { limit, page, showConfirmDeleteModal, commentIdDelete } = this.state;
+    console.log(id);
 
     return (
       <Paper className={classes.root}>
@@ -166,7 +166,7 @@ class PostCommentsContainer extends React.PureComponent<Props, State> {
                     {cell.email}
                   </TableCell>
                   <TableCell>
-                    {getExcerpt(cell.body, 80)}
+                    {cell.body}
                   </TableCell>
                   <TableCell>
                     <Button color="primary" to={`/comments/${cell.id}`} component={Link}>
@@ -200,14 +200,14 @@ class PostCommentsContainer extends React.PureComponent<Props, State> {
           onClose={this.handleCancelDelete}
           disableBackdropClick
           disableEscapeKeyDown
-          aria-labelledby="alert-dialog-title"
-          aria-describedby="alert-dialog-description"
+          aria-labelledby="alert-dialog-title-confirm-delete"
+          aria-describedby="alert-dialog-description-confirm-delete"
         >
-          <DialogTitle id="alert-dialog-title">
+          <DialogTitle id="alert-dialog-title-confirm-delete">
             Are You Sure?
           </DialogTitle>
           <DialogContent>
-            <DialogContentText id="alert-dialog-description">
+            <DialogContentText id="alert-dialog-description-confirm-delete">
               {'Deleted comment can\'t be restored'}
             </DialogContentText>
           </DialogContent>
