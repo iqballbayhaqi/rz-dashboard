@@ -11,11 +11,11 @@ pipeline {
             steps {
                 withCredentials([sshUserPrivateKey(credentialsId: 'servercredential', keyFileVariable: 'KEY', passphraseVariable: 'PASSPHRASE', usernameVariable: 'USERNAME'), string(credentialsId: 'myserverip', variable: 'IP')]) {
                     echo 'Sync...'
-                    sh 'rsync -avrt --delete --exclude \'.git\' --rsh=\'ssh -p 22\' ./ $USERNAME@$IP:/$USERNAME/rzdashboard.rizalibnu.com/'
+                    sh 'rsync -avrt --delete --exclude \'.git\' --rsh=\'ssh -p 22\' ./ $USERNAME@$IP:/$USERNAME/rz-dashboard.rizalibnu.com/'
 
                     echo 'Build Docker...'
                     sh '''
-                    ssh -t -i "$KEY" "$USERNAME"@"$IP" -p 22 "cd /$USERNAME/rzdashboard.rizalibnu.com && sh start.sh"
+                    ssh -t -i "$KEY" "$USERNAME"@"$IP" -p 22 "cd /$USERNAME/rz-dashboard.rizalibnu.com && sh start.sh"
                     '''
                 }
             }

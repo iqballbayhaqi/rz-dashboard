@@ -2,11 +2,11 @@ version: '3'
 
 services:
   web:
-    image: rizalibnu/rzdashboard
-    container_name: rzdashboard
+    image: rizalibnu/rz-dashboard
+    container_name: rz-dashboard
     environment:
-       VIRTUAL_HOST: rzdashboard.rizalibnu.com
-       LETSENCRYPT_HOST: rzdashboard.rizalibnu.com
+       VIRTUAL_HOST: rz-dashboard.rizalibnu.com
+       LETSENCRYPT_HOST: rz-dashboard.rizalibnu.com
        LETSENCRYPT_EMAIL: hello@rizalibnu.com
     restart: always
     expose:

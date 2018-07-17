@@ -1,6 +1,6 @@
 #!/bin/bash
-imageName=rizalibnu/rzdashboard
-containerName=rzdashboard
+imageName=rizalibnu/rz-dashboard
+containerName=rz-dashboard
 
 echo Building image...
 time docker build -t $imageName -f Dockerfile  .
