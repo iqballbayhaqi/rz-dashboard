@@ -128,7 +128,7 @@ class PostCommentsContainer extends React.Component<Props, State> {
     });
   }
 
-  handleConfirmDelete = (id: number) => {
+  handleConfirmDelete = (id: ?number) => {
     if (id !== null) {
       this.props.deleteComment(id);
       this.setState({ showConfirmDeleteModal: false });

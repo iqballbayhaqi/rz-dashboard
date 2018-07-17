@@ -45,7 +45,7 @@ export const getExcerpt = (text: string, limit: number = 50, except: string = '.
   return content.substring(0, limit) + except;
 };
 
-export const getAllCategories = (params: Array<Object>) => {
+export const getAllCategories = (params: Array<Object>): Array<Object> => {
   const items = params;
   let categories = items.map((item: Object) => item.categories);
   categories = [].concat(...categories);

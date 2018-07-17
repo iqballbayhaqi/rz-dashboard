@@ -149,7 +149,7 @@ class PostsContainer extends React.Component<Props, State> {
     });
   }
 
-  handleConfirmDelete = (id: number) => {
+  handleConfirmDelete = (id: ?number) => {
     if (id !== null) {
       this.props.deletePost(id);
       this.setState({ showConfirmDeleteModal: false });

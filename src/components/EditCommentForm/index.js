@@ -1,5 +1,6 @@
 // @flow
 import * as React from 'react';
+import type { StatelessFunctionalComponent } from 'react';
 import { Field, reduxForm } from 'redux-form';
 import compose from 'recompose/compose';
 import { connect } from 'react-redux';
@@ -98,7 +99,16 @@ class EditCommentForm extends React.Component<Props> {
     }
   }
 
-  renderField = ({ className, disabled, input, label, multiline, rows, type, meta: { touched, error } }) => (
+  renderField: StatelessFunctionalComponent<*> = ({
+    className,
+    disabled,
+    input,
+    label,
+    multiline,
+    rows,
+    type,
+    meta: { touched, error },
+  }: Object) => (
     <React.Fragment>
       <FormControl className={className} error={touched && error && true} disabled={disabled}>
         <InputLabel htmlFor={label}>
@@ -106,9 +116,9 @@ class EditCommentForm extends React.Component<Props> {
         </InputLabel>
         <Input {...input} id={label} type={type} multiline={multiline} rows={rows} />
         {touched && error && (
-        <FormHelperText>
-          {error.message}
-        </FormHelperText>
+          <FormHelperText>
+            {error.message}
+          </FormHelperText>
         )}
       </FormControl>
     </React.Fragment>
