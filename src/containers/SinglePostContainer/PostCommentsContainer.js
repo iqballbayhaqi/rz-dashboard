@@ -135,7 +135,6 @@ class PostCommentsContainer extends React.Component<Props, State> {
   render() {
     const { classes, comments, loading, count, id } = this.props;
     const { limit, page, showConfirmDeleteModal, commentIdDelete } = this.state;
-    console.log(id);
 
     return (
       <Paper className={classes.root}>
