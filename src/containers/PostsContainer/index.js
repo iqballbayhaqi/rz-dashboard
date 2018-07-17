@@ -60,6 +60,9 @@ const styles = theme => ({
     overflowX: 'auto',
     position: 'relative',
   },
+  button: {
+    margin: theme.spacing.unit,
+  },
   addButtonWrapper: {
     textAlign: 'right',
     marginRight: 20,
@@ -176,14 +179,14 @@ class PostsContainer extends React.Component<Props, State> {
       >
         <Paper className={classes.root}>
           <div className={classes.addButtonWrapper}>
-            <Button variant="contained" color="primary" component={Link} to="/posts/new">
+            <Button variant="contained" color="secondary" component={Link} to="/posts/new">
               Add New Post
             </Button>
           </div>
           <TableToolbar title={this.handleTitle()} />
           <div className={classes.tableWrapper}>
             {loading && <CircularProgress className={classes.progress} />}
-            <Table className={classes.table} aria-labelledby="tableTitle">
+            <Table className={classes.table}>
               <TableHeadView columnData={columnData} />
               <TableBody>
                 {posts.map(cell => (
@@ -195,13 +198,13 @@ class PostsContainer extends React.Component<Props, State> {
                       {cell.title}
                     </TableCell>
                     <TableCell>
-                      <Button color="primary" to={`/posts/${cell.id}`} component={Link}>
+                      <Button color="primary" className={classes.button} variant="contained" to={`/posts/${cell.id}`} component={Link}>
                         Edit
                       </Button>
-                      <Button color="primary" onClick={() => this.handleShowConfirmDeleteModal(cell.id)}>
+                      <Button color="primary" className={classes.button} variant="contained" onClick={() => this.handleShowConfirmDeleteModal(cell.id)}>
                         Delete
                       </Button>
-                      <Button color="primary" to={`/posts/${cell.id}/comments`} component={Link}>
+                      <Button color="primary" className={classes.button} variant="contained" to={`/posts/${cell.id}/comments`} component={Link}>
                         View Comments
                       </Button>
                     </TableCell>

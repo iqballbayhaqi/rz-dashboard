@@ -44,6 +44,9 @@ const styles = theme => ({
     width: '100%',
     marginTop: theme.spacing.unit * 3,
   },
+  button: {
+    margin: theme.spacing.unit,
+  },
   table: {
     minWidth: 1020,
   },
@@ -99,7 +102,7 @@ class UsersContainer extends React.PureComponent<Props, State> {
           <TableToolbar title="Users" />
           <div className={classes.tableWrapper}>
             {loading && <CircularProgress className={classes.progress} />}
-            <Table className={classes.table} aria-labelledby="tableTitle">
+            <Table className={classes.table}>
               <TableHeadView columnData={columnData} />
               <TableBody>
                 {users.map(cell => (
@@ -117,10 +120,10 @@ class UsersContainer extends React.PureComponent<Props, State> {
                       {cell.email}
                     </TableCell>
                     <TableCell>
-                      <Button color="primary" to={`/users/${cell.id}/posts`} component={Link}>
+                      <Button color="primary" className={classes.button} variant="contained" to={`/users/${cell.id}/posts`} component={Link}>
                         View Posts
                       </Button>
-                      <Button color="primary" to={`/users/${cell.id}/albums`} component={Link}>
+                      <Button color="primary" className={classes.button} variant="contained" to={`/users/${cell.id}/albums`} component={Link}>
                         View Albums
                       </Button>
                     </TableCell>

@@ -47,6 +47,9 @@ const styles = theme => ({
   table: {
     minWidth: 1020,
   },
+  button: {
+    margin: theme.spacing.unit,
+  },
   tableWrapper: {
     overflowX: 'auto',
     position: 'relative',
@@ -128,7 +131,7 @@ class AlbumsContainer extends React.Component<Props, State> {
           <TableToolbar title={this.handleTitle()} />
           <div className={classes.tableWrapper}>
             {loading && <CircularProgress className={classes.progress} />}
-            <Table className={classes.table} aria-labelledby="tableTitle">
+            <Table className={classes.table}>
               <TableHeadView columnData={columnData} />
               <TableBody>
                 {albums.map(cell => (
@@ -140,7 +143,7 @@ class AlbumsContainer extends React.Component<Props, State> {
                       {cell.title}
                     </TableCell>
                     <TableCell>
-                      <Button color="primary" to={`/albums/${cell.id}/photos`} component={Link}>
+                      <Button color="primary" className={classes.button} variant="contained" to={`/albums/${cell.id}/photos`} component={Link}>
                         View Photos
                       </Button>
                     </TableCell>

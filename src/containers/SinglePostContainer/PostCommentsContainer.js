@@ -47,13 +47,16 @@ const columnData = [
   { id: 5, numeric: false, disablePadding: false, label: 'Action' },
 ];
 
-const styles = {
+const styles = theme => ({
   table: {
     minWidth: 1020,
   },
   tableWrapper: {
     overflowX: 'auto',
     position: 'relative',
+  },
+  button: {
+    margin: theme.spacing.unit,
   },
   title: {
     marginLeft: 20,
@@ -69,7 +72,7 @@ const styles = {
     top: '50%',
     left: '50%',
   },
-};
+});
 
 class PostCommentsContainer extends React.Component<Props, State> {
   constructor(props: Props) {
@@ -140,7 +143,7 @@ class PostCommentsContainer extends React.Component<Props, State> {
       <Paper className={classes.root}>
         <div className={classes.tableWrapper}>
           <div className={classes.addButtonWrapper}>
-            <Button variant="contained" color="primary" component={Link} to={`/comments/new/posts/${id}`}>
+            <Button variant="contained" color="secondary" component={Link} to={`/comments/new/posts/${id}`}>
               Add New Comment
             </Button>
           </div>
@@ -150,7 +153,7 @@ class PostCommentsContainer extends React.Component<Props, State> {
               {`Post ID: ${id}`}
             </h1>
           )}
-          <Table className={classes.table} aria-labelledby="tableTitle">
+          <Table className={classes.table}>
             <TableHeadView columnData={columnData} />
             <TableBody>
               {comments.map(cell => (
@@ -168,10 +171,10 @@ class PostCommentsContainer extends React.Component<Props, State> {
                     {cell.body}
                   </TableCell>
                   <TableCell>
-                    <Button color="primary" to={`/comments/${cell.id}`} component={Link}>
+                    <Button color="primary" className={classes.button} variant="contained" to={`/comments/${cell.id}`} component={Link}>
                       Edit
                     </Button>
-                    <Button color="primary" onClick={() => this.handleShowConfirmDeleteModal(cell.id)}>
+                    <Button color="primary" className={classes.button} variant="contained" onClick={() => this.handleShowConfirmDeleteModal(cell.id)}>
                       Delete
                     </Button>
                   </TableCell>

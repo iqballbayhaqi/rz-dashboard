@@ -41,9 +41,7 @@ class Footer extends React.PureComponent<Props> {
         <div className={classes.container}>
           <p className={classes.left}>
             <span>
-              <a href="https://rizalibnu.com" className={classes.a}>
-                Rizal Ibnu
-              </a>
+              Built with ♥ by Rizal Ibnu
             </span>
           </p>
         </div>
