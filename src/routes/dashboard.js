@@ -2,17 +2,11 @@
 import * as React from 'react';
 import { Switch, Route, Redirect } from 'react-router-dom';
 import Loadable from 'react-loadable';
-import Dashboard from '@material-ui/icons/Dashboard';
 import Person from '@material-ui/icons/Person';
 import Description from '@material-ui/icons/Description';
 import PhotoLibrary from '@material-ui/icons/PhotoLibrary';
 
 const Loading = () => null;
-
-const DashboardContainer = Loadable({
-  loader: () => import('../containers/DashboardContainer'),
-  loading: Loading,
-});
 
 const UsersContainer = Loadable({
   loader: () => import('../containers/UsersContainer'),
@@ -45,13 +39,6 @@ const PhotosContainer = Loadable({
 });
 
 export const dashboardIndexRoutes = [
-  {
-    showInNavigation: true,
-    path: '/dashboard',
-    navbarName: 'Dashboard',
-    icon: Dashboard,
-    component: DashboardContainer,
-  },
   {
     showInNavigation: true,
     path: '/users',
@@ -124,7 +111,7 @@ export const dashboardIndexRoutes = [
   {
     redirect: true,
     path: '/',
-    to: '/dashboard',
+    to: '/users',
     navbarName: 'Redirect',
   },
 ];

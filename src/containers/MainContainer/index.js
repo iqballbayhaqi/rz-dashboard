@@ -6,7 +6,7 @@ import withStyles from '@material-ui/core/styles/withStyles';
 import Footer from '../../components/Footer';
 import Sidebar from '../../components/Sidebar';
 
-import logo from '../../logo.svg';
+import logo from '../../assets/images/logo.svg';
 import DashboardRoutes, { dashboardIndexRoutes } from '../../routes/dashboard';
 
 type Props = {
