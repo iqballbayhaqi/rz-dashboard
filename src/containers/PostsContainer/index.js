@@ -21,6 +21,7 @@ import DialogTitle from '@material-ui/core/DialogTitle';
 import TableHeadView from '../../components/Table/TableHeadView';
 import TableToolbar from '../../components/Table/TableToolbar';
 import { fetchPosts, fetchPostsOfUser, deletePost } from '../../actions/posts';
+import BaseLayout from '../../components/BaseLayout';
 
 type Props = {
   classes: Object,
@@ -166,85 +167,90 @@ class PostsContainer extends React.Component<Props, State> {
   render() {
     const { classes, posts, loading, count } = this.props;
     const { limit, page, showConfirmDeleteModal, postIdDelete } = this.state;
-    // console.log(this.props);
 
     return (
-      <Paper className={classes.root}>
-        <div className={classes.addButtonWrapper}>
-          <Button variant="contained" color="primary" component={Link} to="/posts/new">
-            Add New Post
-          </Button>
-        </div>
-        <TableToolbar title={this.handleTitle()} />
-        <div className={classes.tableWrapper}>
-          {loading && <CircularProgress className={classes.progress} />}
-          <Table className={classes.table} aria-labelledby="tableTitle">
-            <TableHeadView columnData={columnData} />
-            <TableBody>
-              {posts.map(cell => (
-                <TableRow key={cell.id}>
-                  <TableCell numeric>
-                    {cell.id}
-                  </TableCell>
-                  <TableCell>
-                    {cell.title}
-                  </TableCell>
-                  <TableCell>
-                    <Button color="primary" to={`/posts/${cell.id}`} component={Link}>
-                      Edit
-                    </Button>
-                    <Button color="primary" onClick={() => this.handleShowConfirmDeleteModal(cell.id)}>
-                      Delete
-                    </Button>
-                    <Button color="primary" to={`/posts/${cell.id}/comments`} component={Link}>
-                      View Comments
-                    </Button>
-                  </TableCell>
-                </TableRow>
-              ))}
-            </TableBody>
-          </Table>
-        </div>
-        <TablePagination
-          component="div"
-          count={count}
-          rowsPerPage={limit}
-          page={page}
-          backIconButtonProps={{
-            'aria-label': 'Previous Page',
-          }}
-          nextIconButtonProps={{
-            'aria-label': 'Next Page',
-          }}
-          onChangePage={this.handleChangePage}
-          onChangeRowsPerPage={this.handleChangeRowsPerPage}
-        />
-        <Dialog
-          open={showConfirmDeleteModal}
-          onClose={this.handleCancelDelete}
-          disableBackdropClick
-          disableEscapeKeyDown
-          aria-labelledby="alert-dialog-title"
-          aria-describedby="alert-dialog-description"
-        >
-          <DialogTitle id="alert-dialog-title">
-            Are You Sure?
-          </DialogTitle>
-          <DialogContent>
-            <DialogContentText id="alert-dialog-description">
-              {'Deleted post can\'t be restored'}
-            </DialogContentText>
-          </DialogContent>
-          <DialogActions>
-            <Button onClick={this.handleCancelDelete} color="primary">
-              Cancel
+      <BaseLayout
+        title="RZ Dashboard - Posts"
+        description="Dashboard Example built with React JS"
+        canonical="/posts"
+      >
+        <Paper className={classes.root}>
+          <div className={classes.addButtonWrapper}>
+            <Button variant="contained" color="primary" component={Link} to="/posts/new">
+              Add New Post
             </Button>
-            <Button onClick={() => this.handleConfirmDelete(postIdDelete)} color="primary" autoFocus>
-              {'Yes, I\'m Sure'}
-            </Button>
-          </DialogActions>
-        </Dialog>
-      </Paper>
+          </div>
+          <TableToolbar title={this.handleTitle()} />
+          <div className={classes.tableWrapper}>
+            {loading && <CircularProgress className={classes.progress} />}
+            <Table className={classes.table} aria-labelledby="tableTitle">
+              <TableHeadView columnData={columnData} />
+              <TableBody>
+                {posts.map(cell => (
+                  <TableRow key={cell.id}>
+                    <TableCell numeric>
+                      {cell.id}
+                    </TableCell>
+                    <TableCell>
+                      {cell.title}
+                    </TableCell>
+                    <TableCell>
+                      <Button color="primary" to={`/posts/${cell.id}`} component={Link}>
+                        Edit
+                      </Button>
+                      <Button color="primary" onClick={() => this.handleShowConfirmDeleteModal(cell.id)}>
+                        Delete
+                      </Button>
+                      <Button color="primary" to={`/posts/${cell.id}/comments`} component={Link}>
+                        View Comments
+                      </Button>
+                    </TableCell>
+                  </TableRow>
+                ))}
+              </TableBody>
+            </Table>
+          </div>
+          <TablePagination
+            component="div"
+            count={count}
+            rowsPerPage={limit}
+            page={page}
+            backIconButtonProps={{
+              'aria-label': 'Previous Page',
+            }}
+            nextIconButtonProps={{
+              'aria-label': 'Next Page',
+            }}
+            onChangePage={this.handleChangePage}
+            onChangeRowsPerPage={this.handleChangeRowsPerPage}
+          />
+          <Dialog
+            open={showConfirmDeleteModal}
+            onClose={this.handleCancelDelete}
+            disableBackdropClick
+            disableEscapeKeyDown
+            aria-labelledby="alert-dialog-title"
+            aria-describedby="alert-dialog-description"
+          >
+            <DialogTitle id="alert-dialog-title">
+              Are You Sure?
+            </DialogTitle>
+            <DialogContent>
+              <DialogContentText id="alert-dialog-description">
+                {'Deleted post can\'t be restored'}
+              </DialogContentText>
+            </DialogContent>
+            <DialogActions>
+              <Button onClick={this.handleCancelDelete} color="primary">
+                Cancel
+              </Button>
+              <Button onClick={() => this.handleConfirmDelete(postIdDelete)} color="primary" autoFocus>
+                {'Yes, I\'m Sure'}
+              </Button>
+            </DialogActions>
+          </Dialog>
+        </Paper>
+      </BaseLayout>
     );
   }
 }

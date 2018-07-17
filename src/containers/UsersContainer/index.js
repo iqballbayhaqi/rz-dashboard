@@ -16,6 +16,7 @@ import CircularProgress from '@material-ui/core/CircularProgress';
 import TableHeadView from '../../components/Table/TableHeadView';
 import TableToolbar from '../../components/Table/TableToolbar';
 import fetchUsers from '../../actions/users';
+import BaseLayout from '../../components/BaseLayout';
 
 type Props = {
   classes: Object,
@@ -89,55 +90,61 @@ class UsersContainer extends React.PureComponent<Props, State> {
     const { limit, page } = this.state;
 
     return (
-      <Paper className={classes.root}>
-        <TableToolbar title="Users" />
-        <div className={classes.tableWrapper}>
-          {loading && <CircularProgress className={classes.progress} />}
-          <Table className={classes.table} aria-labelledby="tableTitle">
-            <TableHeadView columnData={columnData} />
-            <TableBody>
-              {users.map(cell => (
-                <TableRow key={cell.id}>
-                  <TableCell numeric>
-                    {cell.id}
-                  </TableCell>
-                  <TableCell>
-                    {cell.name}
-                  </TableCell>
-                  <TableCell>
-                    {cell.username}
-                  </TableCell>
-                  <TableCell>
-                    {cell.email}
-                  </TableCell>
-                  <TableCell>
-                    <Button color="primary" to={`/users/${cell.id}/posts`} component={Link}>
-                      View Posts
-                    </Button>
-                    <Button color="primary" to={`/users/${cell.id}/albums`} component={Link}>
-                      View Albums
-                    </Button>
-                  </TableCell>
-                </TableRow>
-              ))}
-            </TableBody>
-          </Table>
-        </div>
-        <TablePagination
-          component="div"
-          count={count}
-          rowsPerPage={limit}
-          page={page}
-          backIconButtonProps={{
-            'aria-label': 'Previous Page',
-          }}
-          nextIconButtonProps={{
-            'aria-label': 'Next Page',
-          }}
-          onChangePage={this.handleChangePage}
-          onChangeRowsPerPage={this.handleChangeRowsPerPage}
-        />
-      </Paper>
+      <BaseLayout
+        title="RZ Dashboard - Users"
+        description="Dashboard Example built with React JS"
+        canonical="/users"
+      >
+        <Paper className={classes.root}>
+          <TableToolbar title="Users" />
+          <div className={classes.tableWrapper}>
+            {loading && <CircularProgress className={classes.progress} />}
+            <Table className={classes.table} aria-labelledby="tableTitle">
+              <TableHeadView columnData={columnData} />
+              <TableBody>
+                {users.map(cell => (
+                  <TableRow key={cell.id}>
+                    <TableCell numeric>
+                      {cell.id}
+                    </TableCell>
+                    <TableCell>
+                      {cell.name}
+                    </TableCell>
+                    <TableCell>
+                      {cell.username}
+                    </TableCell>
+                    <TableCell>
+                      {cell.email}
+                    </TableCell>
+                    <TableCell>
+                      <Button color="primary" to={`/users/${cell.id}/posts`} component={Link}>
+                        View Posts
+                      </Button>
+                      <Button color="primary" to={`/users/${cell.id}/albums`} component={Link}>
+                        View Albums
+                      </Button>
+                    </TableCell>
+                  </TableRow>
+                ))}
+              </TableBody>
+            </Table>
+          </div>
+          <TablePagination
+            component="div"
+            count={count}
+            rowsPerPage={limit}
+            page={page}
+            backIconButtonProps={{
+              'aria-label': 'Previous Page',
+            }}
+            nextIconButtonProps={{
+              'aria-label': 'Next Page',
+            }}
+            onChangePage={this.handleChangePage}
+            onChangeRowsPerPage={this.handleChangeRowsPerPage}
+          />
+        </Paper>
+      </BaseLayout>
     );
   }
 }

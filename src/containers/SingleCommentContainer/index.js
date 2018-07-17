@@ -22,6 +22,7 @@ import {
 } from '../../actions/singleComment';
 import { deleteComment } from '../../actions/comments';
 import EditCommentForm from '../../components/EditCommentForm';
+import BaseLayout from '../../components/BaseLayout';
 
 type Props = {
   classes: Object,
@@ -104,57 +105,63 @@ class EditCommentContainer extends React.Component<Props, State> {
   }
 
   render() {
-    const { classes, comment, loading, showSaveSingleCommentSuccessModal } = this.props;
+    const { classes, comment, loading, showSaveSingleCommentSuccessModal, match: { params: { id } } } = this.props;
     const { showConfirmDeleteModal } = this.state;
 
     return (
-      <Paper className={classes.root}>
-        {
-          this.state.redirect
-            ? <Redirect to={`/posts/${comment.postId}/comments`} />
-            : <EditCommentForm comment={comment} loading={loading} onSubmit={this.handleSubmit} onDelete={this.handleShowConfirmDeleteModal} />
-        }
-        <Dialog
-          open={showConfirmDeleteModal}
-          onClose={this.handleCancelDelete}
-          disableBackdropClick
-          disableEscapeKeyDown
-          aria-labelledby="alert-dialog-title-confirm-delete"
-          aria-describedby="alert-dialog-description-confirm-delete"
-        >
-          <DialogTitle id="alert-dialog-title-confirm-delete">
-            Are You Sure?
-          </DialogTitle>
-          <DialogContent>
-            <DialogContentText id="alert-dialog-description-confirm-delete">
-              {'Deleted comment can\'t be restored'}
-            </DialogContentText>
-          </DialogContent>
-          <DialogActions>
-            <Button onClick={this.handleCancelDelete} color="primary">
-              Cancel
-            </Button>
-            <Button onClick={this.handleConfirmDelete} color="primary" autoFocus>
-              {'Yes, I\'m Sure'}
-            </Button>
-          </DialogActions>
-        </Dialog>
-        <Dialog
-          open={showSaveSingleCommentSuccessModal}
-          disableBackdropClick
-          disableEscapeKeyDown
-          aria-labelledby="alert-dialog-title-save-success"
-        >
-          <DialogTitle id="alert-dialog-title-save-success">
-            Save Success
-          </DialogTitle>
-          <DialogActions>
-            <Button color="primary" onClick={this.props.hideSaveSingleCommentSuccessModal} autoFocus>
-              Ok
-            </Button>
-          </DialogActions>
-        </Dialog>
-      </Paper>
+      <BaseLayout
+        title="RZ Dashboard - Single Comment"
+        description="Dashboard Example built with React JS"
+        canonical={`/comments/${id}`}
+      >
+        <Paper className={classes.root}>
+          {
+            this.state.redirect
+              ? <Redirect to={`/posts/${comment.postId}/comments`} />
+              : <EditCommentForm comment={comment} loading={loading} onSubmit={this.handleSubmit} onDelete={this.handleShowConfirmDeleteModal} />
+          }
+          <Dialog
+            open={showConfirmDeleteModal}
+            onClose={this.handleCancelDelete}
+            disableBackdropClick
+            disableEscapeKeyDown
+            aria-labelledby="alert-dialog-title-confirm-delete"
+            aria-describedby="alert-dialog-description-confirm-delete"
+          >
+            <DialogTitle id="alert-dialog-title-confirm-delete">
+              Are You Sure?
+            </DialogTitle>
+            <DialogContent>
+              <DialogContentText id="alert-dialog-description-confirm-delete">
+                {'Deleted comment can\'t be restored'}
+              </DialogContentText>
+            </DialogContent>
+            <DialogActions>
+              <Button onClick={this.handleCancelDelete} color="primary">
+                Cancel
+              </Button>
+              <Button onClick={this.handleConfirmDelete} color="primary" autoFocus>
+                {'Yes, I\'m Sure'}
+              </Button>
+            </DialogActions>
+          </Dialog>
+          <Dialog
+            open={showSaveSingleCommentSuccessModal}
+            disableBackdropClick
+            disableEscapeKeyDown
+            aria-labelledby="alert-dialog-title-save-success"
+          >
+            <DialogTitle id="alert-dialog-title-save-success">
+              Save Success
+            </DialogTitle>
+            <DialogActions>
+              <Button color="primary" onClick={this.props.hideSaveSingleCommentSuccessModal} autoFocus>
+                Ok
+              </Button>
+            </DialogActions>
+          </Dialog>
+        </Paper>
+      </BaseLayout>
     );
   }
 }

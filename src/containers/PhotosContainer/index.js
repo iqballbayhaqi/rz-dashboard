@@ -20,6 +20,7 @@ import TableHeadView from '../../components/Table/TableHeadView';
 import TableToolbar from '../../components/Table/TableToolbar';
 import { fetchPhotos, fetchPhotosOfAlbum } from '../../actions/photos';
 import Image from '../../components/Image';
+import BaseLayout from '../../components/BaseLayout';
 
 type Props = {
   classes: Object,
@@ -145,61 +146,67 @@ class PhotosContainer extends React.Component<Props, State> {
     const { limit, page, modalOpen, photo } = this.state;
 
     return (
-      <Paper className={classes.root}>
-        <TableToolbar title={this.handleTitle()} />
-        <div className={classes.tableWrapper}>
-          {loading && <CircularProgress className={classes.progress} />}
-          <Table className={classes.table} aria-labelledby="tableTitle">
-            <TableHeadView columnData={columnData} />
-            <TableBody>
-              {photos.map(cell => (
-                <TableRow key={cell.id}>
-                  <TableCell numeric>
-                    {cell.id}
-                  </TableCell>
-                  <TableCell>
-                    <ButtonBase onClick={() => this.handleOpenModal(cell)}>
-                      <Lazy ltIE9 className={classes.image}>
-                        <Image src={cell.thumbnailUrl} alt={cell.title} className={classes.image} />
-                      </Lazy>
-                    </ButtonBase>
-                  </TableCell>
-                  <TableCell>
-                    {cell.title}
-                  </TableCell>
-                  <TableCell>
-                    <Button color="primary" onClick={() => this.handleOpenModal(cell)}>
-                      View Photo
-                    </Button>
-                  </TableCell>
-                </TableRow>
-              ))}
-            </TableBody>
-          </Table>
-        </div>
-        <TablePagination
-          component="div"
-          count={count}
-          rowsPerPage={limit}
-          page={page}
-          backIconButtonProps={{
-            'aria-label': 'Previous Page',
-          }}
-          nextIconButtonProps={{
-            'aria-label': 'Next Page',
-          }}
-          onChangePage={this.handleChangePage}
-          onChangeRowsPerPage={this.handleChangeRowsPerPage}
-        />
-        <Modal open={modalOpen} onClose={this.handleCloseModal} center>
-          <h2>
-            {photo.title}
-          </h2>
-          <Lazy ltIE9 className={classes.zoomImage}>
-            <Image src={photo.url} alt={photo.title} className={classes.zoomImage} />
-          </Lazy>
-        </Modal>
-      </Paper>
+      <BaseLayout
+        title="RZ Dashboard - Photos"
+        description="Dashboard Example built with React JS"
+        canonical="/photos"
+      >
+        <Paper className={classes.root}>
+          <TableToolbar title={this.handleTitle()} />
+          <div className={classes.tableWrapper}>
+            {loading && <CircularProgress className={classes.progress} />}
+            <Table className={classes.table} aria-labelledby="tableTitle">
+              <TableHeadView columnData={columnData} />
+              <TableBody>
+                {photos.map(cell => (
+                  <TableRow key={cell.id}>
+                    <TableCell numeric>
+                      {cell.id}
+                    </TableCell>
+                    <TableCell>
+                      <ButtonBase onClick={() => this.handleOpenModal(cell)}>
+                        <Lazy ltIE9 className={classes.image}>
+                          <Image src={cell.thumbnailUrl} alt={cell.title} className={classes.image} />
+                        </Lazy>
+                      </ButtonBase>
+                    </TableCell>
+                    <TableCell>
+                      {cell.title}
+                    </TableCell>
+                    <TableCell>
+                      <Button color="primary" onClick={() => this.handleOpenModal(cell)}>
+                        View Photo
+                      </Button>
+                    </TableCell>
+                  </TableRow>
+                ))}
+              </TableBody>
+            </Table>
+          </div>
+          <TablePagination
+            component="div"
+            count={count}
+            rowsPerPage={limit}
+            page={page}
+            backIconButtonProps={{
+              'aria-label': 'Previous Page',
+            }}
+            nextIconButtonProps={{
+              'aria-label': 'Next Page',
+            }}
+            onChangePage={this.handleChangePage}
+            onChangeRowsPerPage={this.handleChangeRowsPerPage}
+          />
+          <Modal open={modalOpen} onClose={this.handleCloseModal} center>
+            <h2>
+              {photo.title}
+            </h2>
+            <Lazy ltIE9 className={classes.zoomImage}>
+              <Image src={photo.url} alt={photo.title} className={classes.zoomImage} />
+            </Lazy>
+          </Modal>
+        </Paper>
+      </BaseLayout>
     );
   }
 }

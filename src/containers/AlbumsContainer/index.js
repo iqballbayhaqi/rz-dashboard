@@ -16,6 +16,7 @@ import CircularProgress from '@material-ui/core/CircularProgress';
 import TableHeadView from '../../components/Table/TableHeadView';
 import TableToolbar from '../../components/Table/TableToolbar';
 import { fetchAlbums, fetchAlbumsOfUser } from '../../actions/albums';
+import BaseLayout from '../../components/BaseLayout';
 
 type Props = {
   classes: Object,
@@ -118,46 +119,52 @@ class AlbumsContainer extends React.Component<Props, State> {
     const { limit, page } = this.state;
 
     return (
-      <Paper className={classes.root}>
-        <TableToolbar title={this.handleTitle()} />
-        <div className={classes.tableWrapper}>
-          {loading && <CircularProgress className={classes.progress} />}
-          <Table className={classes.table} aria-labelledby="tableTitle">
-            <TableHeadView columnData={columnData} />
-            <TableBody>
-              {albums.map(cell => (
-                <TableRow key={cell.id}>
-                  <TableCell numeric>
-                    {cell.id}
-                  </TableCell>
-                  <TableCell>
-                    {cell.title}
-                  </TableCell>
-                  <TableCell>
-                    <Button color="primary" to={`/albums/${cell.id}/photos`} component={Link}>
-                      View Photos
-                    </Button>
-                  </TableCell>
-                </TableRow>
-              ))}
-            </TableBody>
-          </Table>
-        </div>
-        <TablePagination
-          component="div"
-          count={count}
-          rowsPerPage={limit}
-          page={page}
-          backIconButtonProps={{
-            'aria-label': 'Previous Page',
-          }}
-          nextIconButtonProps={{
-            'aria-label': 'Next Page',
-          }}
-          onChangePage={this.handleChangePage}
-          onChangeRowsPerPage={this.handleChangeRowsPerPage}
-        />
-      </Paper>
+      <BaseLayout
+        title="RZ Dashboard - Albums"
+        description="Dashboard Example built with React JS"
+        canonical="/albums"
+      >
+        <Paper className={classes.root}>
+          <TableToolbar title={this.handleTitle()} />
+          <div className={classes.tableWrapper}>
+            {loading && <CircularProgress className={classes.progress} />}
+            <Table className={classes.table} aria-labelledby="tableTitle">
+              <TableHeadView columnData={columnData} />
+              <TableBody>
+                {albums.map(cell => (
+                  <TableRow key={cell.id}>
+                    <TableCell numeric>
+                      {cell.id}
+                    </TableCell>
+                    <TableCell>
+                      {cell.title}
+                    </TableCell>
+                    <TableCell>
+                      <Button color="primary" to={`/albums/${cell.id}/photos`} component={Link}>
+                        View Photos
+                      </Button>
+                    </TableCell>
+                  </TableRow>
+                ))}
+              </TableBody>
+            </Table>
+          </div>
+          <TablePagination
+            component="div"
+            count={count}
+            rowsPerPage={limit}
+            page={page}
+            backIconButtonProps={{
+              'aria-label': 'Previous Page',
+            }}
+            nextIconButtonProps={{
+              'aria-label': 'Next Page',
+            }}
+            onChangePage={this.handleChangePage}
+            onChangeRowsPerPage={this.handleChangeRowsPerPage}
+          />
+        </Paper>
+      </BaseLayout>
     );
   }
 }

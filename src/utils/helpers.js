@@ -1,4 +1,6 @@
 // @flow
+export const host = 'https://rzdashboard.rizalibnu.com';
+
 export const getId = (str: string) => {
   const string = str.split('/');
   return string[string.length - 1];

@@ -10,6 +10,7 @@ import Tab from '@material-ui/core/Tab';
 import { fetchSinglePost, newSinglePost } from '../../actions/singlePost';
 import PostCommentsContainer from './PostCommentsContainer';
 import EditPostContainer from './EditPostContainer';
+import BaseLayout from '../../components/BaseLayout';
 
 type Props = {
   classes: Object,
@@ -54,7 +55,11 @@ class SinglePostContainer extends React.PureComponent<Props, State> {
     } = this.props;
 
     return (
-      <React.Fragment>
+      <BaseLayout
+        title="RZ Dashboard - Single Post"
+        description="Dashboard Example built with React JS"
+        canonical={`/posts/${id}`}
+      >
         <Paper className={classes.root}>
           {id !== 'new' && (
           <Tabs
@@ -70,7 +75,7 @@ class SinglePostContainer extends React.PureComponent<Props, State> {
           {pathname === `/posts/${id}` && <EditPostContainer post={post} loading={loading} />}
           {post.id && pathname === `/posts/${id}/comments` && <PostCommentsContainer id={id} post={post} />}
         </Paper>
-      </React.Fragment>
+      </BaseLayout>
     );
   }
 }
