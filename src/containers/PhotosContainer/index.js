@@ -166,7 +166,7 @@ class PhotosContainer extends React.Component<Props, State> {
                     <TableCell>
                       <ButtonBase onClick={() => this.handleOpenModal(cell)}>
                         <Lazy ltIE9 className={classes.image}>
-                          <Image src={cell.thumbnailUrl} alt={cell.title} className={classes.image} />
+                          <Image src={(cell.thumbnailUrl).replace(/^http:\/\//i, 'https://')} alt={cell.title} className={classes.image} />
                         </Lazy>
                       </ButtonBase>
                     </TableCell>
@@ -202,7 +202,9 @@ class PhotosContainer extends React.Component<Props, State> {
               {photo.title}
             </h2>
             <Lazy ltIE9 className={classes.zoomImage}>
-              <Image src={photo.url} alt={photo.title} className={classes.zoomImage} />
+              {photo.url && (
+              <Image src={(photo.url).replace(/^http:\/\//i, 'https://')} alt={photo.title} className={classes.zoomImage} />
+              )}
             </Lazy>
           </Modal>
         </Paper>
