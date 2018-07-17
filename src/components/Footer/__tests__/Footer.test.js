@@ -2,7 +2,7 @@ import React from 'react';
 import { shallow } from 'enzyme';
 import Footer from '../index';
 
-describe('Image', () => {
+describe('Footer', () => {
   it('should be defined', () => {
     expect(Footer).toBeDefined();
   });
