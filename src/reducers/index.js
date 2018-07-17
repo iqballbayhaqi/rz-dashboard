@@ -6,6 +6,9 @@ import postsReducer from './posts';
 import singlePostReducer from './singlePost';
 import commentsReducer from './comments';
 import singleCommentReducer from './singleComment';
+import albumsReducer from './albums';
+import photosReducer from './photos';
+import singlePhotoReducer from './singlePhoto';
 
 export default combineReducers({
   form: formReducer,
@@ -14,4 +17,7 @@ export default combineReducers({
   singlePostReducer,
   commentsReducer,
   singleCommentReducer,
+  albumsReducer,
+  photosReducer,
+  singlePhotoReducer,
 });
