@@ -5,6 +5,7 @@ import usersReducer from './users';
 import postsReducer from './posts';
 import singlePostReducer from './singlePost';
 import commentsReducer from './comments';
+import singleCommentReducer from './singleComment';
 
 export default combineReducers({
   form: formReducer,
@@ -12,4 +13,5 @@ export default combineReducers({
   postsReducer,
   singlePostReducer,
   commentsReducer,
+  singleCommentReducer,
 });

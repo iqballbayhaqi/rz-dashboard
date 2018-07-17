@@ -28,6 +28,11 @@ const SinglePostContainer = Loadable({
   loading: Loading,
 });
 
+const SingleCommentContainer = Loadable({
+  loader: () => import('../containers/SingleCommentContainer'),
+  loading: Loading,
+});
+
 export const dashboardIndexRoutes = [
   {
     showInNavigation: true,
@@ -67,6 +72,18 @@ export const dashboardIndexRoutes = [
     path: '/posts/:id/comments',
     navbarName: 'Single Post Comments',
     component: SinglePostContainer,
+  },
+  {
+    showInNavigation: false,
+    path: '/comments/:id',
+    navbarName: 'Single Comment',
+    component: SingleCommentContainer,
+  },
+  {
+    showInNavigation: false,
+    path: '/comments/new/posts/:postId',
+    navbarName: 'Add New Comment',
+    component: SingleCommentContainer,
   },
   {
     redirect: true,
