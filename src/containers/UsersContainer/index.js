@@ -111,8 +111,11 @@ class UsersContainer extends React.PureComponent<Props, State> {
                     {cell.email}
                   </TableCell>
                   <TableCell>
-                    <Button color="primary" to={`/users/${cell.id}`} component={Link}>
-                      View
+                    <Button color="primary" to={`/users/${cell.id}/posts`} component={Link}>
+                      View Posts
+                    </Button>
+                    <Button color="primary" to={`/users/${cell.id}/albums`} component={Link}>
+                      View Albums
                     </Button>
                   </TableCell>
                 </TableRow>

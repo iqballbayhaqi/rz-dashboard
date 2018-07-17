@@ -49,6 +49,12 @@ export const dashboardIndexRoutes = [
     component: UsersContainer,
   },
   {
+    showInNavigation: false,
+    path: '/users/:id/posts',
+    navbarName: 'Posts of User',
+    component: PostsContainer,
+  },
+  {
     showInNavigation: true,
     path: '/posts',
     navbarName: 'Posts',

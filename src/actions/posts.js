@@ -46,6 +46,26 @@ export const fetchPosts = (page: number, limit: number) => (dispatch: Function) 
     });
 };
 
+export const fetchPostsOfUser = (page: number, limit: number, userId: number) => (dispatch: Function) => {
+  dispatch(fetchPostsLoading(true));
+
+  const url = `users/${userId}/posts?_page=${page + 1}&_limit=${limit}&_sort=id&_order=desc`;
+
+  api.get(url)
+    .then((response) => {
+      dispatch(fetchPostsLoading(false));
+      return response;
+    })
+    .then((data) => {
+      dispatch(fetchPostsSuccess(data));
+    })
+    .catch((error) => {
+      console.log(error);
+      dispatch(fetchPostsLoading(false));
+      dispatch(fetchPostsError(error));
+    });
+};
+
 export const deletePost = (id: number) => (dispatch: Function) => {
   dispatch(fetchPostsLoading(true));
 

@@ -2,7 +2,7 @@
 import * as React from 'react';
 import compose from 'recompose/compose';
 import { connect } from 'react-redux';
-import { Link } from 'react-router-dom';
+import { withRouter, Link } from 'react-router-dom';
 import { withStyles } from '@material-ui/core/styles';
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
@@ -20,7 +20,7 @@ import DialogTitle from '@material-ui/core/DialogTitle';
 
 import TableHeadView from '../../components/Table/TableHeadView';
 import TableToolbar from '../../components/Table/TableToolbar';
-import { fetchPosts, deletePost } from '../../actions/posts';
+import { fetchPosts, fetchPostsOfUser, deletePost } from '../../actions/posts';
 
 type Props = {
   classes: Object,
@@ -28,8 +28,10 @@ type Props = {
   count: number,
   loading: boolean,
   fetchPosts: Function,
+  fetchPostsOfUser: Function,
   deletePost: Function,
   deletedPostId: number,
+  match: Object,
 };
 
 type State = {
@@ -83,25 +85,49 @@ class PostsContainer extends React.Component<Props, State> {
 
   componentWillMount() {
     const { page, limit } = this.state;
-    this.props.fetchPosts(page, limit);
+    const { path, params } = this.props.match;
+    if (path === '/posts') {
+      this.props.fetchPosts(page, limit);
+    }
+    if (path === '/users/:id/posts') {
+      this.props.fetchPostsOfUser(page, limit, params.id);
+    }
   }
 
   componentDidUpdate(prevProps) {
     const { page, limit } = this.state;
+    const { path, params } = this.props.match;
     if (prevProps.deletedPostId !== this.props.deletedPostId) {
-      this.props.fetchPosts(page, limit);
+      if (path === '/posts') {
+        this.props.fetchPosts(page, limit);
+      }
+      if (path === '/users/:id/posts') {
+        this.props.fetchPostsOfUser(page, limit, params.id);
+      }
     }
   }
 
   handleChangePage = (event: Object, page: number) => {
     const { limit } = this.state;
-    this.props.fetchPosts(page, limit);
+    const { path, params } = this.props.match;
+    if (path === '/posts') {
+      this.props.fetchPosts(page, limit);
+    }
+    if (path === '/users/:id/posts') {
+      this.props.fetchPostsOfUser(page, limit, params.id);
+    }
     this.setState({ page });
   };
 
   handleChangeRowsPerPage = (event: Object) => {
     const { page } = this.state;
-    this.props.fetchPosts(page, event.target.value);
+    const { path, params } = this.props.match;
+    if (path === '/posts') {
+      this.props.fetchPosts(page, event.target.value);
+    }
+    if (path === '/users/:id/posts') {
+      this.props.fetchPostsOfUser(page, event.target.value, params.id);
+    }
     this.setState({ limit: event.target.value });
   };
 
@@ -126,9 +152,21 @@ class PostsContainer extends React.Component<Props, State> {
     }
   }
 
+  handleTitle = () => {
+    const { path, params } = this.props.match;
+    if (path === '/posts') {
+      return 'Posts';
+    }
+    if (path === '/users/:id/posts') {
+      return `Posts of User ID ${params.id}`;
+    }
+    return '';
+  }
+
   render() {
     const { classes, posts, loading, count } = this.props;
     const { limit, page, showConfirmDeleteModal, postIdDelete } = this.state;
+    // console.log(this.props);
 
     return (
       <Paper className={classes.root}>
@@ -137,7 +175,7 @@ class PostsContainer extends React.Component<Props, State> {
             Add New Post
           </Button>
         </div>
-        <TableToolbar title="Posts" />
+        <TableToolbar title={this.handleTitle()} />
         <div className={classes.tableWrapper}>
           {loading && <CircularProgress className={classes.progress} />}
           <Table className={classes.table} aria-labelledby="tableTitle">
@@ -222,6 +260,7 @@ function mapStateToProps(state) {
 }
 
 export default compose(
+  withRouter,
   withStyles(styles),
-  connect(mapStateToProps, { fetchPosts, deletePost }),
+  connect(mapStateToProps, { fetchPosts, fetchPostsOfUser, deletePost }),
 )(PostsContainer);
