@@ -56,6 +56,7 @@ const styles = theme => ({
   },
   button: {
     margin: theme.spacing.unit,
+    fontWeight: 'bold',
   },
   tableWrapper: {
     overflowX: 'auto',
@@ -169,7 +170,11 @@ class PhotosContainer extends React.Component<Props, State> {
                     <TableCell>
                       <ButtonBase onClick={() => this.handleOpenModal(cell)}>
                         <Lazy ltIE9 className={classes.image}>
-                          <Image src={(cell.thumbnailUrl).replace(/^http:\/\//i, 'https://')} alt={cell.title} className={classes.image} />
+                          <Image
+                            src={(cell.thumbnailUrl).replace(/^http:\/\//i, 'https://')}
+                            alt={cell.title}
+                            className={classes.image}
+                          />
                         </Lazy>
                       </ButtonBase>
                     </TableCell>
@@ -177,7 +182,12 @@ class PhotosContainer extends React.Component<Props, State> {
                       {cell.title}
                     </TableCell>
                     <TableCell>
-                      <Button color="primary" className={classes.button} variant="contained" onClick={() => this.handleOpenModal(cell)}>
+                      <Button
+                        color="primary"
+                        className={classes.button}
+                        variant="contained"
+                        onClick={() => this.handleOpenModal(cell)}
+                      >
                         View Photo
                       </Button>
                     </TableCell>
@@ -206,7 +216,11 @@ class PhotosContainer extends React.Component<Props, State> {
             </h2>
             <Lazy ltIE9 className={classes.zoomImage}>
               {photo.url && (
-              <Image src={(photo.url).replace(/^http:\/\//i, 'https://')} alt={photo.title} className={classes.zoomImage} />
+              <Image
+                src={(photo.url).replace(/^http:\/\//i, 'https://')}
+                alt={photo.title}
+                className={classes.zoomImage}
+              />
               )}
             </Lazy>
           </Modal>

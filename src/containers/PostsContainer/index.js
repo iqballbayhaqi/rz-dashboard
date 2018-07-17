@@ -62,6 +62,7 @@ const styles = theme => ({
   },
   button: {
     margin: theme.spacing.unit,
+    fontWeight: 'bold',
   },
   addButtonWrapper: {
     textAlign: 'right',
@@ -179,7 +180,13 @@ class PostsContainer extends React.Component<Props, State> {
       >
         <Paper className={classes.root}>
           <div className={classes.addButtonWrapper}>
-            <Button variant="contained" color="secondary" component={Link} to="/posts/new">
+            <Button
+              variant="contained"
+              className={classes.button}
+              color="secondary"
+              component={Link}
+              to="/posts/new"
+            >
               Add New Post
             </Button>
           </div>
@@ -198,13 +205,30 @@ class PostsContainer extends React.Component<Props, State> {
                       {cell.title}
                     </TableCell>
                     <TableCell>
-                      <Button color="primary" className={classes.button} variant="contained" to={`/posts/${cell.id}`} component={Link}>
+                      <Button
+                        color="primary"
+                        className={classes.button}
+                        variant="contained"
+                        to={`/posts/${cell.id}`}
+                        component={Link}
+                      >
                         Edit
                       </Button>
-                      <Button color="primary" className={classes.button} variant="contained" onClick={() => this.handleShowConfirmDeleteModal(cell.id)}>
+                      <Button
+                        color="primary"
+                        className={classes.button}
+                        variant="contained"
+                        onClick={() => this.handleShowConfirmDeleteModal(cell.id)}
+                      >
                         Delete
                       </Button>
-                      <Button color="primary" className={classes.button} variant="contained" to={`/posts/${cell.id}/comments`} component={Link}>
+                      <Button
+                        color="primary"
+                        className={classes.button}
+                        variant="contained"
+                        to={`/posts/${cell.id}/comments`}
+                        component={Link}
+                      >
                         View Comments
                       </Button>
                     </TableCell>

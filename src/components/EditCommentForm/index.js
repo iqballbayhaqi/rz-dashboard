@@ -14,6 +14,7 @@ import FormHelperText from '@material-ui/core/FormHelperText';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import Grid from '@material-ui/core/Grid';
 import DeleteIcon from '@material-ui/icons/Delete';
+import SaveIcon from '@material-ui/icons/Save';
 
 import { fetchSingleComment } from '../../actions/singleComment';
 
@@ -52,6 +53,10 @@ const styles = theme => ({
   },
   button: {
     margin: 10,
+    fontWeight: 'bold',
+  },
+  leftIcon: {
+    marginRight: theme.spacing.unit,
   },
   title: {
     marginLeft: 20,
@@ -132,8 +137,15 @@ class EditCommentForm extends React.Component<Props> {
         {/* Show Delete Button only on existing Comment */}
         {comment.id && (
         <div className={classes.deleteButton}>
-          <Button size="small" variant="contained" aria-label="Delete" disabled={submitting} onClick={onDelete}>
-            <DeleteIcon />
+          <Button
+            size="small"
+            variant="contained"
+            aria-label="Delete"
+            disabled={submitting}
+            onClick={onDelete}
+            className={classes.button}
+          >
+            <DeleteIcon className={classes.leftIcon} />
             Delete
           </Button>
         </div>
@@ -164,6 +176,7 @@ class EditCommentForm extends React.Component<Props> {
               className={classes.button}
               size="large"
             >
+              <SaveIcon className={classes.leftIcon} />
               Save
             </Button>
           </Grid>

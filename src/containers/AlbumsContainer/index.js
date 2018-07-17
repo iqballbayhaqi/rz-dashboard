@@ -49,6 +49,7 @@ const styles = theme => ({
   },
   button: {
     margin: theme.spacing.unit,
+    fontWeight: 'bold',
   },
   tableWrapper: {
     overflowX: 'auto',
@@ -143,7 +144,13 @@ class AlbumsContainer extends React.Component<Props, State> {
                       {cell.title}
                     </TableCell>
                     <TableCell>
-                      <Button color="primary" className={classes.button} variant="contained" to={`/albums/${cell.id}/photos`} component={Link}>
+                      <Button
+                        color="primary"
+                        className={classes.button}
+                        variant="contained"
+                        to={`/albums/${cell.id}/photos`}
+                        component={Link}
+                      >
                         View Photos
                       </Button>
                     </TableCell>

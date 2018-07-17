@@ -46,6 +46,7 @@ const styles = theme => ({
   },
   button: {
     margin: theme.spacing.unit,
+    fontWeight: 'bold',
   },
   table: {
     minWidth: 1020,

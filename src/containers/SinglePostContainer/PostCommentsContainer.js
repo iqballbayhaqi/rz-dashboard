@@ -57,6 +57,7 @@ const styles = theme => ({
   },
   button: {
     margin: theme.spacing.unit,
+    fontWeight: 'bold',
   },
   title: {
     marginLeft: 20,
@@ -143,7 +144,13 @@ class PostCommentsContainer extends React.Component<Props, State> {
       <Paper className={classes.root}>
         <div className={classes.tableWrapper}>
           <div className={classes.addButtonWrapper}>
-            <Button variant="contained" color="secondary" component={Link} to={`/comments/new/posts/${id}`}>
+            <Button
+              variant="contained"
+              className={classes.button}
+              color="secondary"
+              component={Link}
+              to={`/comments/new/posts/${id}`}
+            >
               Add New Comment
             </Button>
           </div>
@@ -171,10 +178,21 @@ class PostCommentsContainer extends React.Component<Props, State> {
                     {cell.body}
                   </TableCell>
                   <TableCell>
-                    <Button color="primary" className={classes.button} variant="contained" to={`/comments/${cell.id}`} component={Link}>
+                    <Button
+                      color="primary"
+                      className={classes.button}
+                      variant="contained"
+                      to={`/comments/${cell.id}`}
+                      component={Link}
+                    >
                       Edit
                     </Button>
-                    <Button color="primary" className={classes.button} variant="contained" onClick={() => this.handleShowConfirmDeleteModal(cell.id)}>
+                    <Button
+                      color="primary"
+                      className={classes.button}
+                      variant="contained"
+                      onClick={() => this.handleShowConfirmDeleteModal(cell.id)}
+                    >
                       Delete
                     </Button>
                   </TableCell>
