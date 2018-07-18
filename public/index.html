@@ -12,6 +12,14 @@
     <link rel="icon" type="image/png" sizes="32x32" href="%PUBLIC_URL%/favicon-32x32.png">
     <link rel="icon" type="image/png" sizes="16x16" href="%PUBLIC_URL%/favicon-16x16.png">
     <link rel="mask-icon" href="%PUBLIC_URL%/safari-pinned-tab.svg" color="#5bbad5">
+    <link rel="preload" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500" as="font" crossorigin>
+    <link rel="preload" href="https://fonts.googleapis.com/icon?family=Material+Icons" as="font" crossorigin>
+    <!--
+      Preconnect.
+      Gives a hint to the browser to begin the connection handshake (DNS, TCP, TLS)
+      in the background to improve performance.
+    -->
+    <link rel="preconnect" href="https://jsonplaceholder.rizalibnu.com" crossorigin>
     <!--
       manifest.json provides metadata used when your web app is added to the
       homescreen on Android. See https://developers.google.com/web/fundamentals/engage-and-retain/web-app-manifest/
@@ -31,14 +39,6 @@
     <link rel="apple-touch-startup-image" href="%PUBLIC_URL%/assets/splash/launch-1536x2048.png" media="(min-device-width: 768px) and (max-device-width: 1024px) and (-webkit-min-device-pixel-ratio: 2) and (orientation: portrait)">
     <link rel="apple-touch-startup-image" href="%PUBLIC_URL%/assets/splash/launch-1668x2224.png" media="(min-device-width: 834px) and (max-device-width: 834px) and (-webkit-min-device-pixel-ratio: 2) and (orientation: portrait)">
     <link rel="apple-touch-startup-image" href="%PUBLIC_URL%/assets/splash/launch-2048x2732.png" media="(min-device-width: 1024px) and (max-device-width: 1024px) and (-webkit-min-device-pixel-ratio: 2) and (orientation: portrait)">
-    <!--
-      Preconnect.
-      Gives a hint to the browser to begin the connection handshake (DNS, TCP, TLS)
-      in the background to improve performance.
-    -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com">
-    <link rel="preconnect" href="https://jsonplaceholder.rizalibnu.com">
     <!--
       Notice the use of %PUBLIC_URL% in the tags above.
       It will be replaced with the URL of the `public` folder during the build.
