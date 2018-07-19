@@ -10,7 +10,7 @@ Live Preview : https://rz-dashboard.rizalibnu.com/
 ### Lighthouse Report
 <img src="screenshots/lighthouse-test.png" />
 
-### Webpagetest Report
+### Webpagetest Report (Dulles, VA - 3G Slow)
 <img src="screenshots/webpagetest-simple-testing.png" />
 
 https://www.webpagetest.org/result/180719_XY_7be2084164c125b56918e2ef4f7e1fb9/
