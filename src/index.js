@@ -4,7 +4,6 @@ import ReactDOM from 'react-dom';
 import { BrowserRouter } from 'react-router-dom';
 import { Provider } from 'react-redux';
 import { MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles';
-import teal from '@material-ui/core/colors/teal';
 import deepOrange from '@material-ui/core/colors/deepOrange';
 import CssBaseline from '@material-ui/core/CssBaseline';
 
@@ -17,14 +16,14 @@ import registerServiceWorker from './registerServiceWorker';
 const theme = createMuiTheme({
   palette: {
     primary: {
-      light: teal[300],
-      main: teal[500],
-      dark: teal[700],
+      light: '#00abb7',
+      main: '#008087',
+      dark: '#006368',
     },
     secondary: {
-      light: deepOrange[300],
-      main: deepOrange[500],
-      dark: deepOrange[700],
+      light: deepOrange[500],
+      main: deepOrange[700],
+      dark: deepOrange[900],
     },
   },
 });

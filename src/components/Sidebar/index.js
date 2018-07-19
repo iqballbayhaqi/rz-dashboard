@@ -34,7 +34,7 @@ const styles = theme => ({
     position: 'fixed',
     top: '0',
     bottom: '0',
-    background: '#00A8B3',
+    background: theme.palette.primary.main,
     left: '0',
     zIndex: '1',
     ...boxShadow,
