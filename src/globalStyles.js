@@ -1,7 +1,41 @@
 // @flow
+import robotoNormal300 from './assets/fonts/roboto-normal-300.woff2';
+import robotoNormal400 from './assets/fonts/roboto-normal-400.woff2';
+import robotoNormal500 from './assets/fonts/roboto-normal-500.woff2';
+import materialIcons from './assets/fonts/material-icons.woff2';
 
 const styles = {
   '@global': {
+    '@font-face': [
+      {
+        fontFamily: '\'Roboto\'',
+        src: `url(${robotoNormal300})`,
+        fontWeight: 300,
+        fontStyle: 'normal',
+        fontDisplay: 'swap',
+      },
+      {
+        fontFamily: '\'Roboto\'',
+        src: `url(${robotoNormal400})`,
+        fontWeight: 400,
+        fontStyle: 'normal',
+        fontDisplay: 'swap',
+      },
+      {
+        fontFamily: '\'Roboto\'',
+        src: `url(${robotoNormal500})`,
+        fontWeight: 500,
+        fontStyle: 'normal',
+        fontDisplay: 'swap',
+      },
+      {
+        fontFamily: '\'Material Icons\'',
+        src: `url(${materialIcons})`,
+        fontWeight: 400,
+        fontStyle: 'normal',
+        fontDisplay: 'swap',
+      },
+    ],
     html: {
       padding: 0,
       margin: 0,
@@ -36,6 +70,21 @@ const styles = {
     h4: {
       fontSize: 14,
       fontFamily: '\'Roboto\', sans-serif !important',
+    },
+    '.material-icons': {
+      fontFamily: 'Material Icons',
+      fontWeight: 'normal',
+      fontStyle: 'normal',
+      fontSize: 24,
+      lineHeight: 1,
+      letterSpacing: 'normal',
+      textTransform: 'none',
+      display: 'inline-block',
+      whiteSpace: 'nowrap',
+      wordWrap: 'normal',
+      direction: 'ltr',
+      '-webkit-font-feature-settings': 'liga',
+      '-webkit-font-smoothing': 'antialiased',
     },
     '.heading': {
       letterSpacing: '-0.01em',
